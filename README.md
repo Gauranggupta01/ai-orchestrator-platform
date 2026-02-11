@@ -1,4 +1,4 @@
-# 🚀 AI Orchestrator Platform
+# 🚀 AI Orchestrator Platform...
 
 A full-stack **Multi-Mode AI Web Application** that allows users to generate:
 
