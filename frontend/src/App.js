@@ -1,5 +1,6 @@
 import { useState } from "react";
 import ReactMarkdown from "react-markdown";
+import { API_BASE } from "./config";
 
 function App() {
   const [prompt, setPrompt] = useState("");
@@ -17,7 +18,7 @@ function App() {
     setReply("");
 
     try {
-      const res = await fetch("http://127.0.0.1:8000/api/generate/", {
+      const res = await fetch(`${API_BASE}/api/generate/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
