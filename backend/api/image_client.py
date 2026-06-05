@@ -3,31 +3,45 @@ import requests
 
 HF_TOKEN = os.getenv("HF_TOKEN")
 
-MODEL_ID = "stabilityai/stable-diffusion-xl-base-1.0"
+MODEL_ID = "black-forest-labs/FLUX.1-dev"
 
 API_URL = f"https://router.huggingface.co/hf-inference/models/{MODEL_ID}"
 
 headers = {
     "Authorization": f"Bearer {HF_TOKEN}",
-    "Content-Type": "application/json"
+    "Content-Type": "application/json",
 }
 
 
 def generate_image(prompt):
+
     if not HF_TOKEN:
         return None, "HF_TOKEN missing"
 
-    payload = {
-        "inputs": prompt
-    }
+    try:
 
-    response = requests.post(API_URL, headers=headers, json=payload)
+        payload = {
+            "inputs": prompt
+        }
 
-    # Debug print
-    print("HF Status:", response.status_code)
-    print("HF Response:", response.text[:200])
+        response = requests.post(
+            API_URL,
+            headers=headers,
+            json=payload,
+            timeout=120
+        )
 
-    if response.status_code != 200:
-        return None, response.text
+        print("HF Status:", response.status_code)
 
-    return response.content, None
+        try:
+            print("HF Response:", response.text[:500])
+        except:
+            pass
+
+        if response.status_code != 200:
+            return None, f"HF Error {response.status_code}: {response.text}"
+
+        return response.content, None
+
+    except Exception as e:
+        return None, str(e)
