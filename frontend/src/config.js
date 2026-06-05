@@ -1,1 +1,1 @@
-export const API_BASE = "https://ai-orchestrator-platform.onrender.com/";
+export const API_BASE = "https://ai-orchestrator-platform.onrender.com";
