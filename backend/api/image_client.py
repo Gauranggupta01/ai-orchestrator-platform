@@ -3,11 +3,14 @@ import requests
 
 HF_TOKEN = os.getenv("HF_TOKEN")
 
-API_URL = "https://api-inference.huggingface.co/models/black-forest-labs/FLUX.1-dev"
+MODEL_ID = "black-forest-labs/FLUX.1-dev"
+
+API_URL = f"https://router.huggingface.co/hf-inference/models/{MODEL_ID}"
 
 headers = {
     "Authorization": f"Bearer {HF_TOKEN}"
 }
+
 
 def generate_image(prompt):
 
@@ -21,7 +24,7 @@ def generate_image(prompt):
         timeout=120
     )
 
-    print("HF Status:", response.status_code)
+    print("STATUS:", response.status_code)
 
     if response.status_code != 200:
         return None, response.text
